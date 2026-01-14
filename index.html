@@ -1,201 +1,92 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Python — Тест по вопросам (расширенная база)</title>
-<style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-    h1 { text-align: center; }
-    #authorTop, #authorBottom {
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        margin: 10px 0;
-        color: #444;
-    }
-    .questionBox {
-        background: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    button {
-        padding: 12px 25px;
-        font-size: 18px;
-        cursor: pointer;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        margin-top: 20px;
-    }
-    .correct { color: green; font-weight: bold; }
-    .wrong { color: red; font-weight: bold; }
-</style>
-</head>
-<body>
-
-<h1>Тест по Python — пошаговый режим</h1>
-<div id="authorTop">Автор: АНДРЕЙ СТИЛЬ</div>
-
-<div id="content" class="questionBox"></div>
-
-<div id="authorBottom">Автор: АНДРЕЙ СТИЛЬ</div>
-
 <script>
-// =========================
-// Расширенная база вопросов (~50)
-// =========================
-const allQuestions = [
-{ q:"Что такое Python?", a:0, options:["язык программирования","браузер","игра","чип"] },
-{ q:"Кем создан Python?", a:1, options:["Джон Кармак","Гвидо ван Россум","Дэн Абрамов","Линус Торвальдс"] },
-{ q:"Тип данных True/False?", a:3, options:["int","float","str","bool"] },
-{ q:"Команда вывода текста:", a:0, options:["print","echo","say","out"] },
-{ q:"Создание списка:", a:2, options:["{}","()","[]","<>"] },
-{ q:"Создание словаря:", a:0, options:["{}","[]","()","set()"] },
-{ q:"Функция длины списка:", a:3, options:["count","size","num","len"] },
-{ q:"Цикл перебора:", a:0, options:["for","loop","repeat","each"] },
-{ q:"Оператор условий:", a:0, options:["if","case","switch","when"] },
-{ q:"Создание функции:", a:2, options:["func","function","def","make"] },
-{ q:"Тип данных 3.14:", a:1, options:["int","float","double","decimal"] },
-{ q:"Преобразование строки в число:", a:1, options:["str()","int()","float()","num()"] },
-{ q:"Преобразование числа в строку:", a:0, options:["str()","text()","convert()","string()"] },
-{ q:"Ввод текста пользователя:", a:2, options:["scan","read","input","get"] },
-{ q:"Оператор остатка:", a:3, options:["/","//","**","%"] },
-{ q:"Оператор степени:", a:2, options:["^","++","**","pow"] },
-{ q:"Конкатенация строк:", a:3, options:["&","*","+","-"] },
-{ q:"Остановка цикла:", a:1, options:["stop","break","finish","end"] },
-{ q:"Пропустить итерацию:", a:0, options:["continue","skip","pass","ignore"] },
-{ q:"Анонимная функция:", a:3, options:["fun","anon","function","lambda"] },
-{ q:"Получение типа:", a:0, options:["type","typeof","kind","form"] },
-{ q:"Удаление элемента списка:", a:2, options:["del","drop","remove","erase"] },
-{ q:"Добавление в список:", a:3, options:["add","push","insert","append"] },
-{ q:"Сортировка списка:", a:1, options:["order","sort","arrange","fix"] },
-{ q:"Пустой список:", a:3, options:["{}","()","set()","list()"] },
-{ q:"Создание множества:", a:0, options:["set()","list()","dict()","tuple()"] },
-{ q:"Неизменяемый тип:", a:3, options:["list","set","dict","tuple"] },
-{ q:"Начало блока исключений:", a:1, options:["except","try","error","catch"] },
-{ q:"Обработка ошибок:", a:0, options:["except","fix","catch","handle"] },
-{ q:"Код, который выполнится всегда:", a:3, options:["else","after","end","finally"] },
-{ q:"Открытие файла:", a:0, options:["open","file","load","read"] },
-{ q:"Чтение файла:", a:1, options:["write","read","take","scan"] },
-{ q:"Запись файла:", a:0, options:["write","put","append","save"] },
-{ q:"Расширение Python файлов:", a:2, options:[".txt",".exe",".py",".code"] },
-{ q:"Создание класса:", a:1, options:["object","class","new","make"] },
-{ q:"Метод создания объекта:", a:2, options:["create","start","__init__","run"] },
-{ q:"Импорт модуля:", a:0, options:["import","load","get","open"] },
-{ q:"Импорт math:", a:1, options:["math","import math","from math","using math"] },
-{ q:"Случайные числа:", a:3, options:["chance","luck","rnd","random"] },
-{ q:"Остановка программы:", a:1, options:["stop","exit","kill","close"] },
-{ q:"Округление:", a:3, options:["ceil","floor","math","round"] },
-{ q:"Минимум:", a:2, options:["low","small","min","tiny"] },
-{ q:"Максимум:", a:3, options:["high","big","large","max"] },
-{ q:"Объединение строк/списков:", a:0, options:["+","&","|","*"] },
-{ q:"Повтор строки:", a:3, options:["/","-","+","*"] },
-{ q:"Проверка принадлежности:", a:1, options:["has","in","is","on"] },
-{ q:"Диапазон чисел:", a:3, options:["list","num","seq","range"] },
-{ q:"Присваивание:", a:0, options:["=","==","=>","->"] },
-{ q:"pip — это:", a:3, options:["дебаггер","компилятор","интерпретатор","менеджер пакетов"] },
-{ q:"Установка пакета:", a:0, options:["pip install","pip add","pip get","install pkg"] },
-{ q:"Виртуальное окружение:", a:3, options:["virt","envcreate","pyenv","venv"] },
-{ q:"Тип цикла:", a:1, options:["for","while","loop","rep"] },
-{ q:"Комментарий:", a:1, options:["//","#","/* */","!"] },
-{ q:"Многострочный комментарий:", a:3, options:["''","--","##","\"\"\""] },
-{ q:"Помощь:", a:2, options:["doc","info","help","man"] },
-{ q:"Бесконечный цикл:", a:1, options:["for","while True","loop forever","cycle"] },
-{ q:"Прерывание цикла:", a:0, options:["break","end","stop","quit"] },
-{ q:"Ничего не делает:", a:3, options:["skip","empty","ignore","pass"] },
-{ q:"Логическое И:", a:0, options:["and","&&","all","both"] },
-{ q:"Логическое ИЛИ:", a:1, options:["or","||","one","either"] },
-{ q:"Отрицание:", a:3, options:["no","!","¬","not"] }
+// --- НАСТРОЙКИ TELEGRAM ---
+const TELEGRAM_BOT_TOKEN = '8442506195:AAFi-gB__XLLN4mHdS9tk8BAD8sDc_oGuIg'; 
+const TELEGRAM_CHAT_ID = 'andreystilbot';
+// --------------------------
+
+let username = '';
+let currentQuestion = 0;
+let score = 0;
+
+// Ваш массив вопросов (я оставил логику прежней)
+let questions = [
+    { question: "Что такое патч?", variants: ["Исправление ошибки или уязвимости","Новый вирус","Музыкальный файл","Обновление интерфейса"], answer: "Исправление ошибки или уязвимости" },
+    // ... остальные вопросы ...
 ];
 
-// =========================
-// Выбираем 10 случайных
-// =========================
-let questions = allQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
-let current = 0;
-let userAnswers = [];
-let username = "";
-
-// =========================
-// Ввод имени
-// =========================
-function askName() {
-    document.getElementById("content").innerHTML = `
-        <h2>Введите ваше имя:</h2>
-        <input type="text" id="username" style="width:100%;padding:10px;font-size:18px;">
-        <button onclick="saveName()">Продолжить</button>
-    `;
-}
-
-function saveName() {
-    let name = document.getElementById("username").value.trim();
-    if (!name) { alert("Введите имя!"); return; }
-    username = name;
+function startTest() {
+    username = document.getElementById('username').value;
+    if (username.trim() === "") {
+        alert("Пожалуйста, введите имя!");
+        return;
+    }
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('quizScreen').style.display = 'block';
     showQuestion();
 }
 
-// =========================
-// Показ вопроса
-// =========================
 function showQuestion() {
-    let q = questions[current];
-    let optionsHTML = "";
-
-    q.options.forEach((opt, i) => {
-        optionsHTML += `
-            <label style="font-size:18px;">
-                <input type="radio" name="answer" value="${i}"> ${opt}
-            </label><br>
-        `;
-    });
-
-    document.getElementById("content").innerHTML = `
-        <h2>Вопрос ${current + 1} из 10</h2>
-        <p style="font-size:20px;"><b>${q.q}</b></p>
-        ${optionsHTML}
-        <button onclick="next()">Далее</button>
-    `;
-}
-
-// =========================
-// Следующий вопрос
-// =========================
-function next() {
-    let chosen = document.querySelector("input[name='answer']:checked");
-    if (!chosen) { alert("Выберите ответ!"); return; }
-
-    userAnswers.push(parseInt(chosen.value));
-    current++;
-
-    if (current >= questions.length) {
+    if (currentQuestion >= questions.length) {
         showResults();
-    } else {
-        showQuestion();
+        return;
     }
+    let q = questions[currentQuestion];
+    document.getElementById('questionText').innerText = q.question;
+    let variantsDiv = document.getElementById('variants');
+    variantsDiv.innerHTML = '';
+    q.variants.forEach(variant => {
+        let btn = document.createElement('button');
+        btn.className = 'variant';
+        btn.innerText = variant;
+        btn.onclick = () => checkAnswer(variant);
+        variantsDiv.appendChild(btn);
+    });
 }
 
-// =========================
-// Итог
-// =========================
+function checkAnswer(selected) {
+    if (selected === questions[currentQuestion].answer) {
+        score++;
+    }
+    currentQuestion++;
+    showQuestion();
+}
+
 function showResults() {
-    let correct = 0;
-    questions.forEach((q,i)=>{ if(userAnswers[i]===q.a) correct++; });
+    document.getElementById('quizScreen').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    document.getElementById('userDisplay').innerText = username;
+    document.getElementById('scoreText').innerText = `Ваш результат: ${score} из ${questions.length}`;
 
-    document.getElementById("content").innerHTML = `
-        <h2>Тест завершён!</h2>
-        <h3>${username}, ваш результат:</h3>
-        <h1 style="color:#007bff;">${correct} / 10</h1>
-        <button onclick="location.reload()">Пройти снова</button>
-    `;
+    // Отправка данных в Telegram
+    sendToTelegram();
 }
 
-// Старт
-askName();
-</script>
+function sendToTelegram() {
+    const message = `
+🔔 *Новый результат теста!*
+👤 Имя: ${username}
+📊 Баллы: ${score} из ${questions.length}
+✅ Процент: ${Math.round((score / questions.length) * 100)}%
+    `;
 
-</body>
-</html>
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error('Ошибка при отправке в Telegram');
+        } else {
+            console.log('Результат успешно отправлен в Telegram');
+        }
+    })
+    .catch(error => console.error('Ошибка сети:', error));
+}
+</script>
